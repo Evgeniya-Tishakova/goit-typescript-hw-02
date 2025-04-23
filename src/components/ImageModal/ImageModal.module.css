@@ -1,0 +1,19 @@
+.modalContent {
+    position: absolute;
+    inset: 40px;
+    overflow: auto;
+    outline: none;
+
+}
+
+.modalContent img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
