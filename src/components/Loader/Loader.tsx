@@ -6,9 +6,9 @@ export default function Loader() {
     <div className={css.loaderWrapper}>
       <ClipLoader
         className={css.loader}
-        color="#123abc"
+        color="#0ea5e9"
         loading={true}
-        size={100}
+        size={80}
         aria-label="Loading Spinner"
         data-testid="loader"
       />

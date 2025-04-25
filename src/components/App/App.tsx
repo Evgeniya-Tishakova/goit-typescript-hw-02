@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import css from "../App/App.module.css";
 import { fetchImages } from "../../imageApi.js";
+import { Image } from "../../types";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 import ImageGallery from "../ImageGallery/ImageGallery.jsx";
 import Loader from "../Loader/Loader.jsx";
@@ -8,25 +9,24 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn.jsx";
 import ImageModal from "../ImageModal/ImageModal.jsx";
 
 export default function App() {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [aciveImage, setActiveImage] = useState(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [aciveImage, setActiveImage] = useState<Image | null>(null);
 
   useEffect(() => {
     if (searchTerm === "") {
       return;
     }
-    async function getData(searchTerm, page) {
+    async function getData(searchTerm: string, page: number) {
       try {
         setError(false);
         setIsLoading(true);
         setSearchTerm(searchTerm);
         const data = await fetchImages(searchTerm, page);
-        console.log(data);
         setImages((prevImages) => [...prevImages, ...data.results]); // [1,2,3,4]
       } catch (error) {
         console.log(error);
@@ -39,7 +39,7 @@ export default function App() {
     console.log(page, searchTerm);
   }, [page, searchTerm]);
 
-  const handleSearch = (topic) => {
+  const handleSearch = (topic: string) => {
     setSearchTerm(topic);
     setPage(1);
     setImages([]);
@@ -49,7 +49,7 @@ export default function App() {
     setIsOpen(false);
   }
 
-  function handleImageClick(image) {
+  function handleImageClick(image: Image) {
     setIsOpen(true);
     console.log(image);
     setActiveImage(image);

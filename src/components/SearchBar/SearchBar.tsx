@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { IoIosSearch } from "react-icons/io";
 import css from "./SearchBar.module.css";
 
-export default function SearchBar({ onSubmit }) {
-  const [info, setInfo] = useState("");
+type SearchBarProps = { onSubmit: (info: string) => void };
 
-  const handleInput = (event) => {
+export default function SearchBar({ onSubmit }: SearchBarProps) {
+  const [info, setInfo] = useState<string>("");
+
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInfo(event.target.value);
-    console.log("handleInput", info);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (info.trim() === "") {
-      console.log("boroda");
       toast.error("This didn't work.");
       return;
     }
@@ -25,8 +25,6 @@ export default function SearchBar({ onSubmit }) {
   const resetForm = () => {
     setInfo("");
   };
-
-  console.log("render", info);
 
   return (
     <header className={css.header}>
